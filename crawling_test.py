@@ -65,7 +65,6 @@ def complain_crawler(name) :
     # 2. 민원 검색 url 
     driver.get("https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseList.npaid") # 민원을 검색할 수 있는 페이지
     
-    # 이부분은 검색 조건문으로 수정하면 어떨까 의견제안!
     # 3. 검색 입력상자 tag -> 검색조건 입력
     search_Nm = driver.find_element_by_name('pttnTypeNm')       # 전체, 민원유사사례, 민원질의응답, 정책질의응답
     search_Type = driver.find_element_by_name('searchInstType') # 중앙행정기관, 지방자치단체, 교육기관, 공공기관 
