@@ -9,3 +9,5 @@ Created on Tue Jul 27 11:17:27 2021
 import urllib.request
 import urllib.parse
 from bs4 import BeautifulSoup
+
+#tnwjd
