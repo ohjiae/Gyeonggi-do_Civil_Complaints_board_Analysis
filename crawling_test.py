@@ -32,6 +32,23 @@ Final project : complaints analysis
 5. evaluating
 """
 
+#찬영(2021.07.27 pm 18:00 추가)
+from selenium import webdriver
+
+#크롬 드라이버 load(각자 설치해놓으신 위치에 맞게!)
+#driver = webdriver.Chrome("D:\\Naver MYBOX\\Bigdata visualization course\\ITWILL/5.Tensorflow/workspace/chap07_Face_detection/lecture00_web_crawling/chromedriver.exe")
+driver.get("https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseList.npaid") # 자동화 제어 사이트(크롤링 대상 사이트) open
+
+#원하는 페이지를 여는 코드
+driver.find_element_by_xpath('//*[@id="frm"]/div[1]/div[2]/a[2]/span').click()#상세 검색으로 늘려줍니다
+driver.find_element_by_xpath('//*[@id="searchInstType"]').click()
+driver.find_element_by_xpath('')# 여기서 콤보 박스를 우리가 고를 수 있도록 코드를 짜보죠
+driver.find_element_by_xpath('')
+driver.find_element_by_xpath('//*[@id="frm"]/div[1]/div[1]/div[4]/button[1]').click#검색을 누릅니다
+
+driver.close() #자동화 제어 사이트 종료
+
+
 # selenum 사용
 from selenium import webdriver # 라이브러리에서 사용하는 모듈만 호출
 import os 
