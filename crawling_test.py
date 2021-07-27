@@ -38,16 +38,13 @@ Final project : complaints analysis
 from selenium import webdriver # 라이브러리에서 사용하는 모듈만 호출
 import os 
 
-chromedriver = '{E:/ITWILL/5_Tensorflow/workspace/Final_chap/chromedriver_win32}' # 각자 컴터에 맞게 수정!
-driver = webdriver.Chrome(chromedriver)
-
 pwd = os.getcwd() # 현재 경로 
 print(pwd)
     
 
 def complain_crawler(name) : 
     # 1. dirver 경로/파일 지정 
-    driver = webdriver.Chrome("E:/ITWILL/5_Tensorflow/workspace/Final_chap/chromedriver_win32/chromedriver.exe")
+    driver = webdriver.Chrome("E:/ITWILL/5_Tensorflow/workspace/Final_chap/chromedriver_win32/chromedriver.exe") # 각자 컴터에 맞게 수정!
     
     # 2. 민원 검색 url 
     driver.get("https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseList.npaid") # 민원을 검색할 수 있는 페이지
