@@ -58,19 +58,18 @@ driver.find_element_by_xpath('//*[@id="frm"]/div[1]/div[1]/div[4]/button[1]').se
 # 4. Crawling
 # 페이지 넘기기 + 그 페이지에서 타이틀 txt를 따와서 리스트에 추가시키기. 염찬영 2021_07_28 17:00
 complain_titles = []
-for i in range(100):
+for i in range(344):
     driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
 
     for i in range(10):
         titles = driver.find_element_by_css_selector('#frm > table > tbody > tr:nth-child(%d) > td.left > a' % (i+1)).text
         complain_titles.append(titles)
-       
-print(complain_titles) 
-
+    print(complain_titles)    
+    
 
     
    
-# 지은
+# 지은 ########################################################################################################################################################
 # selenum 사용
 from selenium import webdriver # 라이브러리에서 사용하는 모듈만 호출
 import os
@@ -121,14 +120,14 @@ driver.implicitly_wait(3)   # 3초 대기(자원 loading)
 #mydata_title = driver.find_element_by class_name('tit') # 제목 - class명이tit를 mydata리스트에 할당
 
 
-# 총 민원 건수
+# 총 민원 건수 (변수명 current_total_pages -> total_complain)
 total_complain = driver.find_element_by_xpath('//*[@id="frm"]/div[2]/span/span').text 
 print(total_complain)
 
 # 페이지별 민원 개수
 complain_per_page = 10
 
-# 전체 페이지 수 계산
+# 전체 페이지 수 계산 
 total_page = int(total_complain)/complain_per_page
 total_page = math.ceil(total_page) # 페이지 소수불가 -> 올림처리
 
