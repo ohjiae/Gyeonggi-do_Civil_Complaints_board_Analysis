@@ -52,11 +52,12 @@ driver.find_element_by_xpath('//*[@id="instListDiv"]/option[34]').click() #국�
 
 driver.find_element_by_xpath('//*[@id="frm"]/div[1]/div[1]/div[4]/button[1]').send_keys(Keys.ENTER) #검색 클릭이 안되서 엔터로 대신
                        
-#push_srch_bt = driver.find_element_by_xpath('//*[@id="frm"]/div[1]/div[1]/div[4]/button[1]').submit # 검색을 누릅니다
 
 
 # 4. Crawling
-# 페이지 넘기기 + 그 페이지에서 타이틀 txt를 따와서 리스트에 추가시키기. 염찬영 2021_07_28 17:00
+
+# 염찬영 2021_07_28 17:00
+# 페이지 넘기기 + 그 페이지에서 타이틀 txt를 따와서 리스트에 추가시키기.
 complain_titles = []
 for i in range(344):
     driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
@@ -64,12 +65,11 @@ for i in range(344):
     for i in range(10):
         titles = driver.find_element_by_css_selector('#frm > table > tbody > tr:nth-child(%d) > td.left > a' % (i+1)).text
         complain_titles.append(titles)
-    print(complain_titles)    
-    
+    print(aa)    
 
     
    
-# 지은 ########################################################################################################################################################
+# 지은 2021_07_28 17:00
 # selenum 사용
 from selenium import webdriver # 라이브러리에서 사용하는 모듈만 호출
 import os
@@ -120,14 +120,14 @@ driver.implicitly_wait(3)   # 3초 대기(자원 loading)
 #mydata_title = driver.find_element_by class_name('tit') # 제목 - class명이tit를 mydata리스트에 할당
 
 
-# 총 민원 건수 (변수명 current_total_pages -> total_complain)
+# 총 민원 건수
 total_complain = driver.find_element_by_xpath('//*[@id="frm"]/div[2]/span/span').text 
 print(total_complain)
 
 # 페이지별 민원 개수
 complain_per_page = 10
 
-# 전체 페이지 수 계산 
+# 전체 페이지 수 계산
 total_page = int(total_complain)/complain_per_page
 total_page = math.ceil(total_page) # 페이지 소수불가 -> 올림처리
 
@@ -199,4 +199,17 @@ os.mkdir(i)            # 현재 위치에 폴더 생성
 os.chdir(pwd+"/"+ i)   # 검색어 이용 하위폴더 생성 
 get_page_data(i)       # get_page_data
 os.chdir(pwd)          # 원래 위치 이동                                        
+    
+
+    
+  
+# 지애 (실패..) 2021_07_28 17:00
+title_list = []
+titles = driver.find_elements_by_css_selector('#frm > table')
+for title in titles :
+    print(title.text)
+    title_list.append(titles.text)
+    
+    
+
     
