@@ -11,4 +11,9 @@
 - 
 
 ### 메인 변수
-- 
+- title = 민원 제목 하나
+- titles = 민원 제목 모음
+- content = 민원 질문 하나
+- contents = 민원 질문 모음
+- reply = 민원 답변 하나
+- replies = 
