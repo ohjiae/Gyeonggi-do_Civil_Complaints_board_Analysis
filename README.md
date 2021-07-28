@@ -7,6 +7,7 @@
 - pwd : 현재 파일 경로
 - driver : 크롬 드라이버 가져오기
 - wait : 크롬 드라이버 10초 기다리기 (로딩 대기용) 
+- find_by_xpath : xpath로 요소 element 1개 
 
 ### 메인 변수
 - post_list : 게시글을 모아둔 리스트
