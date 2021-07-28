@@ -4,7 +4,7 @@
 ## 변수 목록
 ### 기본 세팅용 변수
 - 현재 파일 경로
-# pwd = = os.getcwd()
+pwd = = os.getcwd()
 - 크롬 드라이버 가져오기
 driver = webdriver.Chrome("")
 - 크롬 드라이버 10초 기다리기 (로딩 대기용)
