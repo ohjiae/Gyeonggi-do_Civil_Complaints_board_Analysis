@@ -259,16 +259,16 @@ driver.find_element_by_xpath('//*[@id="frm"]/div[1]/div[1]/div[4]/button[1]').se
                        
 #push_srch_bt = driver.find_element_by_xpath('//*[@id="frm"]/div[1]/div[1]/div[4]/button[1]').submit # 검색을 누릅니다
 
-driver.find_element_by_css_selector('#listCnt > option:nth-child(5)').click() # 10페이지 로딩 -> 50페이지 로딩
+driver.find_element_by_css_selector('#listCnt > option:nth-child(5)').click() # 게시물 10개 로드 -> 게시물 50개 로드
 
 
 # 4. Crawling
-for i in range(69) : 
+for i in range(69) : # 페이지 로드
     titles = []
     
     driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
 
-    for j in range(50) : 
+    for j in range(50) : # 게시물 로드
 
         title = driver.find_element_by_css_selector('#frm > table > tbody > tr:nth-child(%d) > td.left > a'%(j+1)).text
         titles.append(title)
