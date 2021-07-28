@@ -58,14 +58,15 @@ driver.find_element_by_xpath('//*[@id="frm"]/div[1]/div[1]/div[4]/button[1]').se
 # 4. Crawling
 # 페이지 넘기기 + 그 페이지에서 타이틀 txt를 따와서 리스트에 추가시키기. 염찬영 2021_07_28 17:00
 complain_titles = []
-for i in range(344):
+for i in range(100):
     driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
 
     for i in range(10):
         titles = driver.find_element_by_css_selector('#frm > table > tbody > tr:nth-child(%d) > td.left > a' % (i+1)).text
         complain_titles.append(titles)
-    print(complain_titles)    
-    
+       
+print(complain_titles) 
+
 
     
    
