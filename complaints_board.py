@@ -64,7 +64,7 @@ for i in range(344):
     for i in range(10):
         titles = driver.find_element_by_css_selector('#frm > table > tbody > tr:nth-child(%d) > td.left > a' % (i+1)).text
         complain_titles.append(titles)
-    print(aa)    
+    print(titles)    
 
     
    
