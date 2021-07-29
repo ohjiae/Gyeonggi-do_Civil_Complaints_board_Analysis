@@ -16,4 +16,4 @@
 - content = 민원 질문 하나
 - contents = 민원 질문 모음
 - reply = 민원 답변 하나
-- replies = 
+- replies = 민원 답변 모음
