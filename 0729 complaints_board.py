@@ -21,7 +21,7 @@ pwd = os.getcwd() # 현재 경로
 print(pwd)
     
 
-#def complain_crawler(name) :일단 각각 코실행드 한 후 사용자함수 처리하자!
+#def complain_crawler(name) :일단 각각 코드 실행 한 후 사용자함수 처리하자!
 # 1. dirver 경로/파일 지정 
 driver = webdriver.Chrome("/Users/aegohc/ITWILL/final_project/chromedriver")
 
@@ -35,7 +35,8 @@ wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="searchInstType"]/optio
 driver.find_element_by_xpath('//*[@id="searchInstType"]/option[2]').click()              # 중앙행정기관 선택
 
 wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="instListDiv"]/option[34]')))   # 국세청 선택 가능할때까지 기다리기
-driver.find_element_by_xpath('//*[@id="instListDiv"]/option[34]').click()                # 국세청 선택
+#driver.find_element_by_xpath('//*[@id="instListDiv"]/option[34]').click()                # 국세청 선택
+driver.find_element_by_xpath('//*[@id="instListDiv"]/option[71]').click()  # 함수 속도를 위해 건수 적은 행정중심복합도시건설청 선택
 
 
 # 4. [검색] 버튼 클릭 ("//tag[@attr='value']/sub element")
@@ -47,7 +48,7 @@ driver.implicitly_wait(3)   # 3초 대기(자원 loading)
 # 총 민원 건수
 total_complain = driver.find_element_by_xpath('//*[@id="frm"]/div[2]/span/span').text 
 total_complain = total_complain.replace(",","")
-
+total_complain = int(total_complain)
 print(total_complain)
 
 # 페이지별 민원 개수
@@ -112,22 +113,35 @@ for i in range(total_page) :
             driver.find_element_by_xpath('//*[@id="frm"]/table/tbody/tr[%d]/td[2]/a'% (i+1)).click() 
             title = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_top').text
             titles.append(title)
-            content = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_c').text
-            contents.append(content)
+            #내용이 있으면 담고
+            try :
+                content = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_c').text
+                contents.append(content)
+            #없으면 공백을 넣습니다.
+            except :
+                contents.append('')
             reply = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.ans > div').text
             replies.append(reply)
             driver.back()
         # 페이지 다음 버튼 누르는 코드 위치 변동을 통해 중간 elif문 제거하였습니다.    
-        driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click() # 다음 페이지로 넘어가는 버튼(11페이지)
-   
+        try : 
+            driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click() # 다음 페이지로 넘어가는 버튼(11페이지)
+        except :
+            driver.find_element_by_css_selector('#frm > div.page_list > span.nep_p_next').click() #>>버튼이 없을 경우 >버튼을 누릅니다.
+
     elif i == total_page-1: # 마지막 페이지를 긁습니다.
-        driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
+#        driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click() #위에서 이미 >>버튼을 눌렀고, 마지막페이지라 없어도 되므로 삭제.
         for i in range(total_complain%50): # 전체 민원수 % 50으로 나머지 갯수만큼 for문이 반복됩니다.
             driver.find_element_by_xpath('//*[@id="frm"]/table/tbody/tr[%d]/td[2]/a'% (i+1)).click() 
             title = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_top').text
             titles.append(title)
-            content = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_c').text
-            contents.append(content)
+            #내용이 있으면 담고
+            try :
+                content = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_c').text
+                contents.append(content)
+            #없으면 공백을 넣습니다.
+            except :
+                contents.append('')
             reply = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.ans > div').text
             replies.append(reply)
             driver.back()
