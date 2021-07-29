@@ -146,8 +146,16 @@ for i in range(total_page) :
             replies.append(reply)
             driver.back()
 
+driver.close() # 크롬 창 닫기
 
+len(titles) # 140
+print(titles)
 
+len(contents) # 140
+print(contents)
+
+len(replies) # 140
+print(replies)
 
 
 
