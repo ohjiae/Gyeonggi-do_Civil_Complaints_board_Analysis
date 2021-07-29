@@ -12,7 +12,6 @@ from selenium.webdriver.common.keys import Keys
 import math
 import re
 
-
 '''prompt에서 설치 필요
 conda activate tensorflow
 pip install beautifulsoup4
@@ -44,6 +43,7 @@ driver.find_element_by_xpath('//*[@id="frm"]/div[1]/div[1]/div[4]/button[1]').se
 driver.implicitly_wait(3)   # 3초 대기(자원 loading)
 
 
+# 5. Crawling
 # 총 민원 건수
 total_complain = driver.find_element_by_xpath('//*[@id="frm"]/div[2]/span/span').text 
 total_complain = total_complain.replace(",","")
@@ -51,21 +51,21 @@ total_complain = total_complain.replace(",","")
 print(total_complain)
 
 # 페이지별 민원 개수
-complain_per_page = 10
+complain_per_page = 50
 
 # 전체 페이지 수 계산
 total_page = int(total_complain)/complain_per_page
 total_page = math.ceil(total_page) # 페이지 소수불가 -> 올림처리
 
-# 5. 여러페이지 반복하기 
-# 데이터를 담을 리스트
 
-titles = [] # 민원 제목 모음
+# 데이터를 담을 리스트
+titles = []   # 민원 제목 모음
 contents = [] # 민원 질문 모음
-replies = [] # 민원 답변 모음
+replies = []  # 민원 답변 모음
+
 
 # 6. 웹 스크래핑 본문
-
+'''
 for i in range(total_page) : 
     if i == 0: # 첫 페이지(다음 페이지를 누르지 않고 긁어옵니다.)
         for i in range(50):
@@ -101,7 +101,34 @@ for i in range(total_page) :
             reply = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.ans > div').text
             replies.append(reply)
             driver.back()
-         
+'''         
+# 6. 웹 스크래핑 본문
+for i in range(total_page) : 
+    if i == 0: # 첫 페이지(다음 페이지를 누르지 않고 긁어옵니다.)
+        for i in complain_per_page:
+            # 민원 제목 선택
+            driver.find_element_by_xpath('//*[@id="frm"]/table/tbody/tr[%d]/td[2]/a'% (i+1)).click() 
+            title = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_top').text
+            titles.append(title)
+            content = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_c').text
+            contents.append(content)
+            reply = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.ans > div').text
+            replies.append(reply)
+            driver.back()
+        # 페이지 다음 버튼 누르는 코드 위치 변동을 통해 중간 elif문 제거하였습니다.    
+        driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
+   
+    elif i == total_page-1: # 마지막 페이지를 긁습니다.
+        driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
+        for i in range(total_complain%50): # 전체 민원수 % 50으로 나머지 갯수만큼 for문이 반복됩니다.
+            driver.find_element_by_xpath('//*[@id="frm"]/table/tbody/tr[%d]/td[2]/a'% (i+1)).click() 
+            title = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_top').text
+            titles.append(title)
+            content = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_c').text
+            contents.append(content)
+            reply = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.ans > div').text
+            replies.append(reply)
+            driver.back()
 
 
 
