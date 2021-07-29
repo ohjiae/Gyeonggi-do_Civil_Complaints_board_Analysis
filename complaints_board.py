@@ -67,6 +67,14 @@ for i in range(344):
         complain_titles.append(titles)
     print(aa)    
 
+# 바로 위의 찬영님 코드 실행하면 2페이지부터 크롤링이되어서 코드 순서만 살짝 변경했어요!
+for i in range(344):
+    for i in range(10):
+        titles = driver.find_element_by_css_selector('#frm > table > tbody > tr:nth-child(%d) > td.left > a' % (i+1)).text
+        complain_titles.append(titles)
+    
+    driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
+    print(complain_titles)
     
    
 # 지은 2021_07_28 17:00
