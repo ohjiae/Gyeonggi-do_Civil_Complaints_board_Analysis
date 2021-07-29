@@ -69,16 +69,44 @@ titles = [] # 민원 제목 모음
 contents = [] # 민원 질문 모음
 replies = [] # 민원 답변 모음
 
-# 민원 제목 선택
-for i in range(69) :
-    driver.find_element_by_xpath('//*[@id="frm"]/table/tbody/tr[%d]/td[2]/a'% (i+1)).click() 
-    title = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_top').text
-    titles.append(title)
-    content = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_c').text
-    contents.append(content)
-    reply = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.ans > div').text
-    replies.append(reply)
-    driver.back()
+# 6. 웹 스크래핑 본문
+
+for i in range(total_page) : 
+    if i == 0: # 첫 페이지(다음 페이지를 누르지 않고 긁어옵니다.)
+        for i in range(50):
+            driver.find_element_by_xpath('//*[@id="frm"]/table/tbody/tr[%d]/td[2]/a'% (i+1)).click() 
+            title = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_top').text
+            titles.append(title)
+            content = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_c').text
+            contents.append(content)
+            reply = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.ans > div').text
+            replies.append(reply)
+            driver.back()
+
+    elif i < total_page-1: # 2~마지막 전 페이지(다음 페이지를 누르고, 50개를 긁어옵니다)
+        driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
+        for i in range(50):
+            driver.find_element_by_xpath('//*[@id="frm"]/table/tbody/tr[%d]/td[2]/a'% (i+1)).click() 
+            title = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_top').text
+            titles.append(title)
+            content = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_c').text
+            contents.append(content)
+            reply = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.ans > div').text
+            replies.append(reply)
+            driver.back()
+
+    elif i == total_page-1: # 마지막 페이지를 긁습니다.
+        driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
+        for i in range(total_complain%50): # 전체 민원수 % 50으로 나머지 갯수만큼 for문이 반복됩니다.
+            driver.find_element_by_xpath('//*[@id="frm"]/table/tbody/tr[%d]/td[2]/a'% (i+1)).click() 
+            title = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_top').text
+            titles.append(title)
+            content = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_c').text
+            contents.append(content)
+            reply = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.ans > div').text
+            replies.append(reply)
+            driver.back()
+         
 
 
 
