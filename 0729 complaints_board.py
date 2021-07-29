@@ -108,7 +108,7 @@ driver.find_element_by_css_selector('#listCnt > option:nth-child(5)').click() # 
 
 for i in range(total_page) : 
     if i < total_page-1 : # 첫 페이지(다음 페이지를 누르지 않고 긁어옵니다.)
-        for i in complain_per_page:
+        for i in range(complain_per_page) :
             # 민원 제목 선택
             driver.find_element_by_xpath('//*[@id="frm"]/table/tbody/tr[%d]/td[2]/a'% (i+1)).click() 
             title = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_top').text
