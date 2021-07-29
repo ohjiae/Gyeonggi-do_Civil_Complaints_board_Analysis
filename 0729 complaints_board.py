@@ -104,7 +104,7 @@ for i in range(total_page) :
 '''         
 # 6. 웹 스크래핑 본문
 for i in range(total_page) : 
-    if i == 0: # 첫 페이지(다음 페이지를 누르지 않고 긁어옵니다.)
+    if i < total_page-1 : # 첫 페이지(다음 페이지를 누르지 않고 긁어옵니다.)
         for i in complain_per_page:
             # 민원 제목 선택
             driver.find_element_by_xpath('//*[@id="frm"]/table/tbody/tr[%d]/td[2]/a'% (i+1)).click() 
@@ -129,9 +129,6 @@ for i in range(total_page) :
             reply = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.ans > div').text
             replies.append(reply)
             driver.back()
-
-
-
 
 
 
