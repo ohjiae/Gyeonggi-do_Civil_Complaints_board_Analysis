@@ -116,7 +116,7 @@ for i in range(total_page) :
             replies.append(reply)
             driver.back()
         # 페이지 다음 버튼 누르는 코드 위치 변동을 통해 중간 elif문 제거하였습니다.    
-        driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
+        driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click() # 다음 페이지로 넘어가는 버튼(11페이지)
    
     elif i == total_page-1: # 마지막 페이지를 긁습니다.
         driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click()
