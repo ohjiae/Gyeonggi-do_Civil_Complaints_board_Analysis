@@ -103,7 +103,8 @@ for i in range(total_page) :
             driver.back()
 '''         
 # 6. 웹 스크래핑 본문
-driver.find_element_by_css_selector('#listCnt > option:nth-child(5)').click() # 50개
+driver.find_element_by_css_selector('#listCnt > option:nth-child(5)').click() # 50개씩 보기 버튼 누르기
+
 for i in range(total_page) : 
     if i < total_page-1 : # 첫 페이지(다음 페이지를 누르지 않고 긁어옵니다.)
         for i in complain_per_page:
