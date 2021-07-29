@@ -130,7 +130,7 @@ for i in range(total_page) :
             driver.find_element_by_css_selector('#frm > div.page_list > span.nep_p_next').click() #>>버튼이 없을 경우 >버튼을 누릅니다.
 
     elif i == total_page-1: # 마지막 페이지를 긁습니다.
-#        driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click() #위에서 이미 >>버튼을 눌렀고, 마지막페이지라 없어도 되므로 삭제.
+        # driver.find_element_by_xpath('//*[@id="frm"]/div[3]/span[4]/a/img').click() #위에서 이미 >>버튼을 눌렀고, 마지막페이지라 없어도 되므로 삭제.
         for i in range(total_complain%50): # 전체 민원수 % 50으로 나머지 갯수만큼 for문이 반복됩니다.
             driver.find_element_by_xpath('//*[@id="frm"]/table/tbody/tr[%d]/td[2]/a'% (i+1)).click() 
             title = driver.find_element_by_css_selector('#txt > div.same_mwWrap > div.samBox.mw > div > div.samC_top').text
