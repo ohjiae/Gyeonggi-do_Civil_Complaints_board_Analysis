@@ -30,11 +30,6 @@ driver = webdriver.Chrome("/Users/aegohc/ITWILL/final_project/chromedriver")
 driver.get("https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseList.npaid") # 민원기관 선택
 
 # 3. 검색 입력상자 tag -> 검색조건 입력(중앙행정기관 내에서 세부기관 검색)
-#search_Nm = driver.find_element_by_name('pttnTypeNm')       # 전체, 민원유사사례, 민원질의응답, 정책질의응답
-#search_Type = driver.find_element_by_name('searchInstType') # 중앙행정기관, 지방자치단체, 교육기관, 공공기관 
-search_Cd = driver.find_element_by_name('searchInstCd')      # 세부기관(element 이름 찾기)
-
-
 driver.find_element_by_xpath('//*[@id="frm"]/div[1]/div[2]/a[2]/span').click()           # 상세 검색으로 늘려줍니다
 wait = WebDriverWait(driver, 10)
 wait.until(EC.element_to_be_clickable((By.XPATH,'//*[@id="searchInstType"]/option[2]'))) # 중앙행정기관 선택 가능할때까지 기다리기
