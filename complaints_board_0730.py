@@ -126,3 +126,20 @@ print(contents)
 
 len(replies)
 print(replies)
+
+#데이터 프레임 저장 및 csv파일화
+dd = {'titles':titles, 'contents':contents, 'replies':replies}
+
+dd.dtypes
+
+my_data = pd.DataFrame(data=dd)
+
+
+my_data.dtypes
+
+my_data.to_csv('minwon_crawling4400.csv', index=False, encoding='utf-8-sig') 
+
+
+df = pd.read_csv('D:/Naver MYBOX/Bigdata visualization course/ITWILL/minwon_crawling4400.csv', encoding='utf-8')
+
+
