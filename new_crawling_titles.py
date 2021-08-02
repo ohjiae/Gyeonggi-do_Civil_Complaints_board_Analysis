@@ -50,5 +50,5 @@ for i in con_tag :
     contents.append(con.strip())
 for i in ans_tag :
     ans = str(i.string)
-    contents.append(ans.strip())
+    answers.append(ans.strip())
 
