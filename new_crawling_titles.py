@@ -1,5 +1,6 @@
 import urllib.request as req # 원격 서버 url 자료 요청 
 from bs4 import BeautifulSoup # source -> html 파싱 
+import re
 
 '''
 url 쿼리를 이용한 새로운 titles 생성 코드입니다.
