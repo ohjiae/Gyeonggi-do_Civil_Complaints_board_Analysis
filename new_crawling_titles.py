@@ -13,21 +13,16 @@ res = req.urlopen(base_url+"?_csrf=1a8db2e5-e9c2-4d50-b7bc-d56fc8c19fb0&recordCo
 src = res.read()
 data = src.decode('utf-8')
 
-# #3. parsing & variable save
-# html = BeautifulSoup(data, 'html.parser')
-
-# a_tag = html.select('필요 코드 주소')
-
 # 3. 정규식 표현으로 각 게시글의 고유 주소 넘버 추출(17000개 한번에!)
 p = re.compile(r'\d\w\w-\d\d\d\d-\d\d\d\d\d\d\d-\d\w\w-\d\d\d\d-\d\d\d\d\d\d\d-\d\d\d\d\d\d\d-\d\d') 
 #. = 하나의 문자 / ^ : 문자열의 시작
 # $ (se$) : 문자열의 끝 -> case, base (o), face (x)
-address = p.findall(soup)
+address = p.findall(data)
 
 add = address[3000:3010]
 
 for i in add:
-    res = ("%s"% i)
+    res = ("이렇게뒤에붙일수있습니다%s"% i)
     print(res)
 
 for i in address:
