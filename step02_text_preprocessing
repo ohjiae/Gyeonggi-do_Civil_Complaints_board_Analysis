@@ -74,12 +74,115 @@ print(titles)
 
 
 # 3. num_words = 1000개 제한()
-tokenizer = Tokenizer()                 # 1차 : 전체 단어 이용
-tokenizer = Tokenizer(num_words = 1000) # 2차 : 1000개의 단어 이용 -> 희소행렬에 영향
-tokenizer.fit_on_texts(titles)          # 텍스트 반영 -> token 생성
-token = tokenizer.word_index            # 토큰 반환  
+tokenizer = Tokenizer()                  # 1차 : 전체 단어 이용
+#tokenizer = Tokenizer(num_words = 1000) # 2차 : 1000개의 단어 이용 -> 희소행렬에 영향
 
-print(token) # {'word':고유숫자}
+tit = tokenizer.fit_on_texts(titles)    # title 반영 -> token 생성
+rep = tokenizer.fit_on_texts(replies)   # replies 반영 -> token 생성
+
+tit_token = tokenizer.index_word        # title 토큰 반환  
+rep_token = tokenizer.index_word        # replies 토큰 반환
+# print(token) # {'word':고유숫자}
+print(tit_token)  # 1596
+print(rep_token)  # 4711
+
+# 전체 단어수 +1
+title_size = len(tit_token)+1
+reply_size = len(rep_token)+1
+
+# 4. Sparse matrix : [docs, terms] features
+tit_data = tokenizer.texts_to_matrix(texts=titles, mode='tfidf') # tfidf : 가장선호하는 방식(예측력짱)
+tit_data.shape # 1차: (4401, 1597) 1598 = 1597+1 = 전체단어길이+1
+
+rep_data = tokenizer.texts_to_matrix(texts=replies, mode='tfidf') # tfidf : 가장선호하는 방식(예측력짱)
+rep_data.shape  # (4401, 4712) 4713 = 4712+1
+
+
+# 5. train/ test split : 80% vs 20% (제목으로 분류하기)
+x_train, x_val, y_train, y_val = train_test_split(tit_data, sep, test_size=0.2)
+
+type(x_train) # numpy.ndarray
+type(y_train) # numpy.ndarray
+
+# 6. DNN model
+model = Sequential() # keras model
+
+input_shape = (1598,)
+
+# hidden layer1 : w[1598,64]
+model.add(Dense(units=64, input_shape=input_shape, activation = 'relu'))
+
+# hidden layer : w[64,32]
+model.add(Dense(units=32, activation = 'relu'))
+
+# output layer : w[32,1]
+model.add(Dense(units=1, activation='sigmoid'))
+
+
+model.summary()
+'''
+Model: "sequential"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+dense (Dense)                (None, 64)                102336    
+_________________________________________________________________
+dense_1 (Dense)              (None, 32)                2080      
+_________________________________________________________________
+dense_2 (Dense)              (None, 1)                 33        
+=================================================================
+'''
+
+# 7. model compile : 학습과정 설정(이항분류기)
+model.compile(optimizer='adam',
+              loss='binary_crossentropy',
+              metrics=['accuracy'])
+
+# 8. 학습 model training : train(80%) vs val(20%)
+X = x_train.astype(float)
+Y = sep.astype(float)
+sep = float(sep)
+model.fit(X, y_train,
+          epochs=5,
+          batch_size=512,
+          verbose=1,
+          validation_data=(x_val, y_val))
+
+
+'''
+#############################################
+### 코사인 유사도
+#############################################
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# 객체 생성
+tfidf_vectorizer = TfidfVectorizer()
+
+# 문장 벡터화 진행
+tfidf_matrix = tfidf_vectorizer.fit_transform(titles)
+#tfidf_matrix = tfidf_vectorizer.fit_transform(replies)
+
+# 각 단어
+tit_word = tfidf_vectorizer.get_feature_names()
+rep_word = tfidf_vectorizer.get_feature_names()
+
+# 각 단어의 벡터 값
+tit_idf = tfidf_vectorizer.idf_
+rep_idf = tfidf_vectorizer.idf_
+
+print(tit_idf)
+len(tit_idf) #  1551
+
+print(rep_idf)
+len(rep_idf) # 4451
+
+print(dict(zip(tit_word, tit_idf)))
+
+# 코사인 유사도
+from sklearn.metrics.pairwise import cosine_similarity
+cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
+'''
+
 
 
 
