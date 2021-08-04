@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
 """
-Chap02 - TextVectorizing_RNN
-lecture01_vectorizing_encoding
-
 - 희소행렬 + DNN model
 <작업절차>
 1. csv file load
@@ -13,6 +10,7 @@ lecture01_vectorizing_encoding
 5. train/ test split
 6. DNN model
 """
+
 # 0. package load
 # text 처리
 import pandas as pd # csv file
