@@ -43,6 +43,15 @@ for i in tqdm(address):
     except:
         pass # 혹시 문제가 생긴다면 넘어갈 수 있도록 설계. 별로 좋은 방법은 아닙니다.(에러를 specific하게 규정하는게 좋음)
 
+# 5. save to csv
+import pandas as pd
+
+dic = {'title':titles, 'answer':answers}
+
+df = pd.DataFrame(dic)
+
+df.to_csv('crawlingdata17326.csv', encoding='utf-8-sig')
+
 
 ##아래는 강사님이 주신 코드인데, 필요한거만 빼서 코드에 추가했습니다. 혹 참고하실 분은 참고하세요~
 
