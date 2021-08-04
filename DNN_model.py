@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
 """
-- 희소행렬 + DNN model
+chap08_TextVectorizing_RNN > step03_features_classifier.py 참조
+
+# - 희소행렬 + DNN model
+
 <작업절차>
 1. csv file load
 2. texts와 label 전처리
-3. num_words = 4000 제한
+3. num_words = 1000 제한
 4. Sparse matrix : features 
 5. train/ test split
 6. DNN model
@@ -16,6 +19,8 @@
 import pandas as pd # csv file
 import numpy as np  # list -> numpy
 import string       # texts 전처리
+from konlpy.tag import Okt
+from collections import Counter # 불용어 처리
 
 from tensorflow.keras.preprocessing.text import Tokenizer         # 토큰 생성기
 from sklearn.model_selection import train_test_split              # split
@@ -27,7 +32,7 @@ from tensorflow.keras.layers import Dense
 
 # 1. csv file load
 #path = 'K:/ITWILL/Final_project/'
-path = 'C:/Users/STU-16/Desktop/ITWILL-Final_project-main/'
+path = 'D:/서다현/빅데이터/Final_Project/ITWILL-Final_project-main/'
 minwon_data = pd.read_csv(path + 'minwon_crawling4400.csv', header = None)
 minwon_data.info()
 '''
@@ -70,6 +75,34 @@ def text_prepro(titles):
 # 3) 함수 호출
 titles = text_prepro(titles)
 print(titles)
+
+# 4) 불용어 처리
+'''
+현재 tensorflow 자체 문제로 konlpy가 제대로 작동하지 않아 Okt 함수를 실행할 수 없습니다.
+tensorflow가 아닌 python을 이용하거나 다른 pc를 이용해봐야 할 것으로 보입니다.
+그래도 해결되지 않으면 다른 방법을 찾아야 할 것 같네요.
+'''
+nouns_tagger = Okt()
+nouns = nouns_tagger.nouns(titles) # 명사 단위 키워드 추출
+count = Counter(nouns)
+count
+
+remove_char_counter = Counter({x : count[x] for x in count if len(x) > 1})
+print(remove_char_counter)
+
+# (1) 불용어 사전 - https://www.ranks.nl/stopwords/korean
+korean_stopwords = "D:/서다현/빅데이터/Final_Project/ITWILL-Final_project-main/korean_stopwords.txt"
+
+with open(korean_stopwords, encoding='utf8')as f:
+    stopwords = f.readlines()
+
+stopwords = [x.strip() for x in stopwords]
+print(stopwords[:10])
+
+# (2) 불용어 제거 작업
+remove_char_counter = Counter({x : remove_char_counter[x] for x in count \
+                               if x not in stopwords})
+print(remove_char_counter)
 
 
 # 3. num_words = 1000개 제한()
@@ -126,8 +159,8 @@ model.compile(optimizer='adam',
 
 # 8. model training: train(80) vs val(20)
 model.fit(x=x_train, y=y_train, # 훈련셋
-          epochs=5, # 반복학습
-          batch_size=512,
+          epochs=5, # 반복학습(손실값을 비교한 후 현행 유지)
+          batch_size=200, # 손실값이 0.01 정도로 나오도록 수치 조정
           verbose=1, # 출력여부
           validation_data=(x_val, y_val)) # 검증셋
 
@@ -136,3 +169,4 @@ model.fit(x=x_train, y=y_train, # 훈련셋
 print('='*30)
 print('model evaluation')
 model.evaluate(x=x_val, y=y_val)
+
