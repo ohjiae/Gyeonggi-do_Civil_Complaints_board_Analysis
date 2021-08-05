@@ -27,7 +27,7 @@ base_url2 = "https://www.epeople.go.kr/nep/pttn/gnrlPttn/pttnSmlrCaseDetail.npai
 # 4. 고유 주소 넘버를 for문으로 돌면서 제목, 답변을 긁어오는 코드
 titles = []
 # contents = [] --> 현재 경기도 data에는 거의 답변이 없는 것으로 확인되어 우선 삭제 후 보기로 결정
-answers = []
+replies = []
 
 
 for i in tqdm(address):
@@ -39,14 +39,14 @@ for i in tqdm(address):
         tit = html.select('#txt > div.same_mwWrap > div.samBox.mw > div > div > strong') # 제목 추출
         ans = html.select('#txt > div.same_mwWrap > div.samBox.ans > div > div.samC_top') # 답변 추출
         titles.append(str(tit[0].string)) # 저장한 제목을 string 형태로 추출하여 titles 리스트에 저장
-        answers.append(str(ans[0].text).strip()) # 저장한 답변에서 text data만 따로 추출, 공백을 제거(strip)한 이후 리스트에 저장
+        replies.append(str(ans[0].text).strip()) # 저장한 답변에서 text data만 따로 추출, 공백을 제거(strip)한 이후 리스트에 저장
     except:
         pass # 혹시 문제가 생긴다면 넘어갈 수 있도록 설계. 별로 좋은 방법은 아닙니다.(에러를 specific하게 규정하는게 좋음)
 
 # 5. save to csv
 import pandas as pd
 
-dic = {'title':titles, 'answer':answers}
+dic = {'title':titles, 'replies':replies}
 
 df = pd.DataFrame(dic)
 
