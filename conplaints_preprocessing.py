@@ -5,6 +5,11 @@ conplaints_preprocessing.py
 
 민원 전처리
 """
+########### 주의 ##########
+# <base>에 Jpype를 설치한 경우,
+# <tensorflow> 환경에서는 konlpy 패키지가 작동하지 않을 수 있으므로
+# 반드시 <tensorflow>에 먼저 Jpype를 설치한 환경에서만 작동하시길 바랍니다.
+
 
 # 0. package load
 # text 처리
