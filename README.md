@@ -26,6 +26,7 @@
 단계1. 민원data_crawling ( by bs4)
 단계2. text_preprocessing (okt)
 
+
 # chap02
 # 단계0
 - 중복(1 or 0) --> 분류 모델링 : 앙상블모델 이용( SVM, Naive baise.. 활용)
