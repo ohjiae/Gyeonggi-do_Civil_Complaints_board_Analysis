@@ -48,7 +48,7 @@ def text_prepro(titles):
     titles = [x.lower() for x in titles]
     # Remove punctuation : 문장부호 제거
     titles = [''.join(c for c in x if c not in string.punctuation) for x in titles]
-    # Remove numbers : 숫자 제거 [생략]
+    # Remove numbers : 숫자 제거 [생략] (추후 'n호선' 사용 여부)
     #titles = [''.join(c for c in x if c not in string.digits) for x in titles]
     # Trim extra whitespace : 공백 제거
     titles = [' '.join(x.split()) for x in titles]
@@ -75,7 +75,7 @@ okt = Okt()
 result = []
 for sentence in titles:
   tmp = []
-  tmp = okt.morphs(sentence)
+  tmp = okt.nouns(sentence)
   
   tit_tokenized = []
   for token in tmp:
