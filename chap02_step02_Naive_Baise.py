@@ -159,7 +159,7 @@ print(dict(zip(tit_word, tit_idf)))
 
 """
 chap02
-step02_Bernoulli_NB.py
+step02_Naive_Baise.py
 
 MODEL CASE32337
 1. SVM           - 지은님
