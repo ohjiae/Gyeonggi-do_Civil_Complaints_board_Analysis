@@ -21,7 +21,7 @@ from konlpy.tag import Okt
 # 1. csv file load
 #path = 'K:/ITWILL/Final_project/'
 path = 'C:/Users/STU-16/Desktop/빅데이터/Final_Project/ITWILL-Final_project-main/'
-minwon_data = pd.read_csv(path + 'crawlingdata17326.csv', header = None)
+minwon_data = pd.read_csv(path + 'crawlingdata17326.csv')
 minwon_data.info()
 '''
 <class 'pandas.core.frame.DataFrame'>
