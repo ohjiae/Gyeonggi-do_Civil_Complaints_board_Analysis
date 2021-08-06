@@ -82,7 +82,6 @@ for sentence in titles:
     if not token in stopwords:
       tit_tokenized.append(token)
 
-
   result.append(tit_tokenized)
 
 print(result)
