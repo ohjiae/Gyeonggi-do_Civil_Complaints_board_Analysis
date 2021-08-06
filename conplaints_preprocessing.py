@@ -25,17 +25,17 @@ minwon_data = pd.read_csv(path + 'crawlingdata17326.csv')
 minwon_data.info()
 '''
 <class 'pandas.core.frame.DataFrame'>
-RangeIndex: 17327 entries, 0 to 17326
+RangeIndex: 17326 entries, 0 to 17325
 Data columns (total 3 columns):
- #   Column  Non-Null Count  Dtype  
----  ------  --------------  -----  
- 0   0       17326 non-null  float64
- 1   1       17327 non-null  object 
- 2   2       17327 non-null  object 
+ #   Column      Non-Null Count  Dtype 
+---  ------      --------------  ----- 
+ 0   Unnamed: 0  17326 non-null  int64 
+ 1   title       17326 non-null  object
+ 2   answer      17326 non-null  object
 '''
 
-titles = minwon_data[1]
-replies = minwon_data[2]
+titles = minwon_data['title']
+replies = minwon_data['answer']
 
 print(titles)
 
