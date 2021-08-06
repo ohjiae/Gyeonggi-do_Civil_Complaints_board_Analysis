@@ -101,7 +101,7 @@ okt = Okt()
 tit_result = []  # 전처리 완료된 titles
 rpl_result = []  # 전처리 완료된 replies
 
-
+'''
 ### (1) titles 불용어 제거
 for sentence in titles:
   tmp = []
@@ -113,8 +113,31 @@ for sentence in titles:
       tit_tokenized.append(token)
 
   tit_result.append(tit_tokenized)
+  
+ print(tit_result[:10]) 
+'''
+# (1) titles 불용어 제거 - [수정]
+for sentence in titles:  
+  tmp = okt.morphs(sentence)
+  #print('tmp :', tmp)
+  tit_tokenized = []
+  
+  token_tot = ""    
+  for token in tmp:      
+      if not token in stopwords:
+          tit_tokenized.append(token)
+          #print('tit_tokenized :', tit_tokenized)
+          token = token + " "
+          token_tot += token
+          #print('token_tot : ', token_tot)
 
-print(tit_result[:10])
+  #tit_result.append(tit_tokenized)
+  tit_result.append(token_tot)
+
+len(tit_result) # 17326
+print(tit_result[0])  # '경기도 지역화폐 사용 처가 너무 제한 적 입니다' 
+print(tit_result[-1]) # '청소년 교통비'
+
 
 
 ''' 여기 위쪽 먼저 돌린 후 아래 돌리세요 '''
@@ -135,7 +158,7 @@ for sentence in replies:
 print(rpl_result[:10])
 
 
-
+'''
 # 5. 벡터라이징 (tfidf)
 # 객체 생성 
 tfidf_vectorizer = TfidfVectorizer()
@@ -160,7 +183,24 @@ for k in range(len(tit_result)) :
         break
 
 print(tit_result[:10])
+'''
 
+# 5.text vectorizing(tf-idf)
+# 객체 생성
+tfidf_vectorizer = TfidfVectorizer()           
+
+# 문장 벡터화 진행
+tfidf_matrix = tfidf_vectorizer.fit_transform(tit_result)  # 수정 
+tfidf_matrix.shape # (17326, 3560)
+# 각 단어
+tit_word = tfidf_vectorizer.get_feature_names()  
+
+# 각 단어 벡터값
+tit_idf = tfidf_vectorizer.idf_
+print(tit_idf)
+len(tit_idf) # 3560
+
+print(dict(zip(tit_word, tit_idf)))
 
 
 
