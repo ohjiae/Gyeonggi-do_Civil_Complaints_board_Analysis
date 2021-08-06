@@ -21,8 +21,11 @@
             -- 중복 == 0 --> 카테고리 (이 경우에는 담당자가 직접 담당부서 이관) --> 민원text 형태소분석과 <부서>유사도 비교 --> 부서 할당 
 
 # chap01 
-단계1. 민원data_crawling ( by bs4)
-단계2. text_preprocessing (okt)
+- 단계1. 민원data_crawling ( by bs4)
+- 단계2. text_preprocessing (okt)
+- 2-1. tokenize
+- 2-2. remove stop words(불용어처리)
+- 2-3. vectorizing(x1 : titles(embedded), x2:content(embedding), 
 
 
 # chap02
