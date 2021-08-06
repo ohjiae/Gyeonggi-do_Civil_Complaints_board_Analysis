@@ -75,7 +75,7 @@ okt = Okt()
 result = []
 for sentence in titles:
   tmp = []
-  tmp = okt.nouns(sentence)
+  tmp = okt.morphs(sentence)
   
   tit_tokenized = []
   for token in tmp:
