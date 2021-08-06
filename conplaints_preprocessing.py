@@ -90,16 +90,18 @@ rpl_result = []  # 전처리 완료된 replies
 
 
 ### (1) titles 불용어 제거
-for sentence in titles:
-  tmp = []
+for sentence in titles:  
   tmp = okt.morphs(sentence)
-  
   tit_tokenized = []
-  for token in tmp:
-    if not token in stopwords:
-      tit_tokenized.append(token)
+  
+  token_tot = ""    
+  for token in tmp:      
+      if not token in stopwords:
+          tit_tokenized.append(token)
+          token = token + " "
+          token_tot += token
 
-  tit_result.append(tit_tokenized)
+  tit_result.append(token_tot)
 
 print(tit_result)
 
@@ -108,16 +110,18 @@ print(tit_result)
 
 
 ### (2) replies 불용어 제거
-for sentence in replies:
-  tmp = []
+for sentence in replies:  
   tmp = okt.morphs(sentence)
-  
   rpl_tokenized = []
-  for token in tmp:
-    if not token in stopwords:
-      rpl_tokenized.append(token)
+  
+  token_tot = ""    
+  for token in tmp:      
+      if not token in stopwords:
+          rpl_tokenized.append(token)
+          token = token + " "
+          token_tot += token
 
-  rpl_result.append(rpl_tokenized)
+  rpl_result.append(token_tot)
 
 print(rpl_result)
 
@@ -125,9 +129,9 @@ print(rpl_result)
 # 4. csv file save - 생략 가능
 # titles 저장
 titles = pd.DataFrame(tit_result)
-titles.to_csv('titles.csv', index = None, encoding = 'utf-8')
+titles.to_csv('titles.csv', index = None, encoding = 'CP949')
 
 # replies 저장
 replies = pd.DataFrame(rpl_result)
-replies.to_csv('replies.csv', index = None, encoding = 'utf-8')
+replies.to_csv('replies.csv', index = None, encoding = 'CP949')
 '''
