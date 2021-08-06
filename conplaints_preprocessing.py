@@ -61,7 +61,7 @@ print(titles)
 
 # 3. 불용어 제거 - Okt 함수 이용
 # 1) 불용어 사전 - https://www.ranks.nl/stopwords/korean
-korean_stopwords = path + "/korean_stopwords.txt"
+korean_stopwords = path + "korean_stopwords.txt"
 
 with open(korean_stopwords, encoding='utf8') as f : 
     stopwords = f.readlines()
