@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-conplaints_preprocessing.py
+step02_text_preprocessing.py
 
 민원 전처리
 """
@@ -125,7 +125,7 @@ for sentence in replies:
 
 print(rpl_result)
 
-'''
+
 # 4. csv file save - 생략 가능
 # titles 저장
 titles = pd.DataFrame(tit_result)
@@ -134,4 +134,3 @@ titles.to_csv('titles.csv', index = None, encoding = 'CP949')
 # replies 저장
 replies = pd.DataFrame(rpl_result)
 replies.to_csv('replies.csv', index = None, encoding = 'CP949')
-'''
