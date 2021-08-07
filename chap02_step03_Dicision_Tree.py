@@ -183,19 +183,32 @@ model1 = obj1.fit(X=x_train, y=y_train)
 tree_text = export_text(model1)
 plot_tree(model1)
 
-
-# 6. model2: 중요변수='entropy', max_depth=3
+# 6. model2: 중요변수='gini', max_depth=None
 # 1) model 생성
-obj2 = DecisionTreeClassifier(criterion='entropy',
-                              max_depth=3,
-                              random_state=123)
-
+obj2 = DecisionTreeClassifier(criterion='gini',
+                             max_depth=None,
+                             min_samples_split=2,
+                             random_state=123)
 
 model2 = obj2.fit(X=x_train, y=y_train)
 
 # 2) 시각화
 tree_text = export_text(model2)
 plot_tree(model2)
+
+
+# 7. model3: 중요변수='entropy', max_depth=3
+# 1) model 생성
+obj3 = DecisionTreeClassifier(criterion='entropy',
+                              max_depth=3,
+                              random_state=123)
+
+
+model3 = obj3.fit(X=x_train, y=y_train)
+
+# 2) 시각화
+tree_text = export_text(model3)
+plot_tree(model3)
 
 
 # 7. model 평가
@@ -221,16 +234,34 @@ print(test_score1) # 0.9513274336283186
 y_pred2 = model2.predict(x_test)
 
 # confusion_matrix
-con_mat2 = confusion_matrix(y_test, y_pred2)
+con_mat2 = confusion_matrix(y_test, y_pred1)
 print(con_mat2)
 '''
-[[   0  299]
- [   0 4899]]
+[[  61  238]
+ [  15 4884]]
 '''
 
 # accuracy_score
 train_score2 = model2.score(X=x_train, y=y_train)
 test_score2 = model2.score(X=x_test, y=y_test)
 
-print(train_score2) # 0.9463225593667546
-print(test_score2) # 0.9424778761061947
+print(train_score2) # 0.997608839050132
+print(test_score2) # 0.9690265486725663
+
+# 3) model3
+y_pred3 = model3.predict(x_test)
+
+# confusion_matrix
+con_mat3 = confusion_matrix(y_test, y_pred3)
+print(con_mat3)
+'''
+[[   0  299]
+ [   0 4899]]
+'''
+
+# accuracy_score
+train_score3 = model3.score(X=x_train, y=y_train)
+test_score3 = model3.score(X=x_test, y=y_test)
+
+print(train_score3) # 0.9463225593667546
+print(test_score3) # 0.9424778761061947
