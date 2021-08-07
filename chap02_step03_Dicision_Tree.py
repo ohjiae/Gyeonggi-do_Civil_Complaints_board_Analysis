@@ -166,6 +166,18 @@ rpl_index = tfidf_vectorizer.vocabulary_
 print(rpl_index)
 '''
 
+
+"""
+chap02
+step02_Naive_Baise.py
+MODEL CASE32337
+1. SVM           - 지은님
+2. Naive Baise   - 지애님
+3. Decision Tree - 다현님
+# 결정 트리로 0(일반민원), 1(중복민원) 분류
+"""
+
+
 # 5. model1: 중요변수='gini', max_depth=3
 # train test split
 x_train, x_test, y_train, y_test = train_test_split(
