@@ -246,11 +246,11 @@ print(test_score1) # 0.9513274336283186
 y_pred2 = model2.predict(x_test)
 
 # confusion_matrix
-con_mat2 = confusion_matrix(y_test, y_pred1)
+con_mat2 = confusion_matrix(y_test, y_pred2)
 print(con_mat2)
 '''
-[[  61  238]
- [  15 4884]]
+[[ 167  132]
+ [  29 4870]]
 '''
 
 # accuracy_score
