@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 chap02_step02_Dict_department
 1. 부서(Key)와 관련 키워드(Value)를 가진 딕셔너리 만들기
@@ -15,9 +17,8 @@ top5_dept = {
     
 }
 
+keyword = input("keyword를 입력하세요 :")
 
 def find_dept(keyword):
-    print(list(value for value in dict.values() if value == keyword))
-    
-print(find_dept('다리'))
+    return list(key for key, value in dict.item() if value == keyword)
 
