@@ -169,7 +169,7 @@ print(rpl_index)
 
 """
 chap02
-step02_Naive_Baise.py
+step00_Decision_Tree.py
 MODEL CASE32337
 1. SVM           - 지은님
 2. Naive Baise   - 지애님
