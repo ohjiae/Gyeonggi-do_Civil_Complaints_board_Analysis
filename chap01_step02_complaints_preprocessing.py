@@ -35,7 +35,7 @@ titles = minwon_data['title']
 replies = minwon_data['answer']
 sep = minwon_data['sep']
 
-print(titles)
+print(titles[:10])
 
 
 # 2. sep, titles, replies 전처리
@@ -57,11 +57,11 @@ def text_prepro(wc):
 # 2) 함수 호출
 # titles 전처리
 titles = text_prepro(titles)
-print(titles)
+print(titles[:10])
 
 # replies 전처리
 replies = text_prepro(replies)
-print(replies)
+print(replies[:10])
 
 
 # 3. 불용어 제거 - Okt 함수 이용
@@ -95,7 +95,7 @@ for sentence in titles:
 
   tit_result.append(token_tot)
 
-print(tit_result)
+print(tit_result[:10])
 
 # replies 불용어 제거
 for sentence in replies:  
@@ -111,7 +111,7 @@ for sentence in replies:
 
   rpl_result.append(token_tot)
 
-print(rpl_result)
+print(rpl_result[:10])
 
 '''
 # 4. csv file save - 생략 가능
@@ -142,7 +142,7 @@ tit_idf_list = dict(zip(tit_word, tit_idf))
 # 단어와 부여된 정수값 확인
 tit_index = tfidf_vectorizer.vocabulary_
 
-print(tit_index)
+print(tit_index[:10])
 
 # 3) replies 문장 벡터화 진행
 # 문장 벡터화 진행
@@ -158,4 +158,4 @@ rpl_vec_list = dict(zip(rep_word, rep_idf))
 # 단어와 부여된 인덱스 확인
 rpl_index = tfidf_vectorizer.vocabulary_
 
-print(rpl_index)
+print(rpl_index[:10])
