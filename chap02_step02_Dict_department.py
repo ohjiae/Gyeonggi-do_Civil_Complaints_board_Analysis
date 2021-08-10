@@ -61,5 +61,5 @@ for i in range(17325) :
         top = t.head(2)
         dept = top.index
             
-        print(i+1, '번째 -', dept, t.iloc[0,i], t.iloc[1,i])
+        print(i+1, '번째 -', dict(zip(list(dept), [t.iloc[0,i], t.iloc[1,i]])))
 
