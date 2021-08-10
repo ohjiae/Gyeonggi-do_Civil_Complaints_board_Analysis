@@ -209,6 +209,7 @@ print(con_mat)
 4889/(177+4889) # 0.9650611922621397
 #recall
 122/(122+10) #0.92424242424
+
 accuracy_score(y_test, y_pred) # 0.9640246248557137
 print(classification_report(y_test, y_pred))
 '''
@@ -222,36 +223,5 @@ print(classification_report(y_test, y_pred))
 weighted avg       0.96      0.96      0.96      5198
 '''
 
-# 5.중요변수 시각화
-dir(model)
-print('중요도 : ', model.feature_importances_)
-'''
-중요도 : [9.98413306e-05 0.00000000e+00 1.24285112e-07 
-       ... 2.92301717e-07 3.74606048e-09 0.00000000e+00]
-'''
 
-# 변수의 중요도 수치들에 변수의 이름을 같이 보여주기 위해 시각화!
-#x_names # x 변수
-#print(x_names)
-
-#x_size = len(x_names)
-
-#import matplotlib.pyplot as plt
-
-#plt.barh(range(x_size), model.feature_importances_)  #(y,x)
-
-# 가로 막대차트가 12번째가 가장 중요변수임을 나타내고 있다.
-# 축의 눈금에 변수의 이름으 넣어주는 것이 효율적
-# y축 눈금 : x 변수 변경
-#plt.yticks(range(x_size), wine.feature_names)
-#plt.xlabel("feature_importances")
-#plt.show()
-
-'''
-[[ 235   51] 
- [ 141 4771]]
-'''
-
-235/(235+141)
-4771/(51+4771)
 
