@@ -47,5 +47,19 @@ sm = sm.toarray()
 #부서별 키워드 vs 본 파일 title 간의 유사도 측정
 test_sim = linear_kernel(tit_td, sm)
 
+print(test_sim)
 
+df = pd.DataFrame(test_sim, index = top9_dept.keys())
+
+for i in range(17325) : 
+    t = df.sort_values([i], ascending = False)
+
+    if t.iloc[0,i] == 0 : 
+        print(i+1, '번째 - 해당 부서 없음')
+        
+    else : 
+        top = t.head(2)
+        dept = top.index
+            
+        print(i+1, '번째 -', dept, t.iloc[0,i], t.iloc[1,i])
 
