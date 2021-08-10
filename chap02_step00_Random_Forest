@@ -193,7 +193,7 @@ min_samples_split=2
 '''
 
 obj = RandomForestClassifier()          # 위의 기본값을 토대로 obj 생성
-model = obj.fit(X=X_train, y=y_train)   # full dataset 적용
+model = obj.fit(X=X_train, y=y_train)   # train dataset 적용
 
 
 # model 평가
