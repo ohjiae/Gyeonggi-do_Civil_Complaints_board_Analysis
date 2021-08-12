@@ -195,6 +195,12 @@ model1 = obj1.fit(X=x_train, y=y_train)
 tree_text = export_text(model1)
 plot_tree(model1)
 
+import matplotlib.pyplot as plt  
+from sklearn.metrics import plot_confusion_matrix
+
+fig, ax = plt.subplots(figsize = (10,10))
+plot_confusion_matrix(model1, x_test, y_test, cmap=plt.cm.Blues, ax = ax)  
+
 # 6. model2: 중요변수='gini', max_depth=None
 # 1) model 생성
 obj2 = DecisionTreeClassifier(criterion='gini',
@@ -208,6 +214,8 @@ model2 = obj2.fit(X=x_train, y=y_train)
 tree_text = export_text(model2)
 plot_tree(model2)
 
+fig, ax = plt.subplots(figsize = (10,10))
+plot_confusion_matrix(model2, x_test, y_test, cmap=plt.cm.Blues, ax = ax)  
 
 # 7. model3: 중요변수='entropy', max_depth=3
 # 1) model 생성
@@ -221,6 +229,9 @@ model3 = obj3.fit(X=x_train, y=y_train)
 # 2) 시각화
 tree_text = export_text(model3)
 plot_tree(model3)
+
+fig, ax = plt.subplots(figsize = (10,10))
+plot_confusion_matrix(model3, x_test, y_test, cmap=plt.cm.Blues, ax = ax)  
 
 
 # 7. model 평가
