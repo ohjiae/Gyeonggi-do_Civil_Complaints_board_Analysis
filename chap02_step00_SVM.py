@@ -252,6 +252,13 @@ print(con_mat)
 206 / (206  + 93) # 0.6889632107023411 -> 0 예측력
 4879/(20 + 4879)  # 0.9959175341906511
 
+import matplotlib.pyplot as plt  
+from sklearn.metrics import plot_confusion_matrix
+
+fig, ax = plt.subplots(figsize = (10,10))
+plot_confusion_matrix(model, X_test, y_test, cmap=plt.cm.Purples, ax = ax)  
+
+
 
 # 4. 선형 SVM : 선형분류 가능한 데이터 (noise 없는 데이터)
 obj2 = SVC(C=1.0, kernel='linear', gamma='scale') # 가장 중요한 3개의 parameter
@@ -262,6 +269,9 @@ y_pred2 =model2.predict(X=X_test)
 acc2 = accuracy_score(y_test,y_pred2)
 print('accuracy =', acc2)
 # accuracy = 0.9769141977683724
+ 
+fig, ax = plt.subplots(figsize = (10,10))
+plot_confusion_matrix(model2, X_test, y_test, cmap=plt.cm.Purples, ax = ax) 
  
 
 #################################################
@@ -320,6 +330,10 @@ print(con_mat)
 0[[   0  299]  -> 비중복 민원 예측..0%?
 1 [   0 4899]] -> 중복 민원 예측 100%
 '''
+
+#시각화
+fig, ax = plt.subplots(figsize = (10,10))
+plot_confusion_matrix(model, X_test, y_test, cmap=plt.cm.Purples, ax = ax) 
 
 # 이상 SVM모델 분석 결과였습니다.
 
