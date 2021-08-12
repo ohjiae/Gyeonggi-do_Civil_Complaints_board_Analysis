@@ -230,6 +230,14 @@ print(classification_report(y_test,y_predict_NB))
 weighted avg       0.97      0.96      0.97      5198
 '''
 
+# 2-2] 시각화
+import matplotlib.pyplot as plt  
+from sklearn.metrics import plot_confusion_matrix
+
+fig, ax = plt.subplots(figsize = (10,10))
+plot_confusion_matrix(model, x_test, y_test, cmap=plt.cm.Reds, ax = ax)  
+
+
 
 # 3) 실제 데이터로 분류값 예
 new_Xtest = np.array([
@@ -278,6 +286,9 @@ print(classification_report(y_test,y_predict_mnb))
    macro avg       0.90      0.83      0.86      5198
 weighted avg       0.97      0.97      0.97      5198
 '''
+# 2-2] 시각화
+fig, ax = plt.subplots(figsize = (10,10))
+plot_confusion_matrix(mnb_model, x_test, y_test, cmap=plt.cm.Reds, ax = ax)  
 
 
 # 3) 실제 데이터로 분류값 예
