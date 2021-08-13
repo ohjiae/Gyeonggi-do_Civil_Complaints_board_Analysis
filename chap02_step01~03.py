@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 chap02_step00_Cosine_Similarity를 구하기 위한 여정 ~
 """
@@ -22,18 +23,19 @@ from sklearn.metrics.pairwise import linear_kernel
 # 1. csv file load
 #path = 'K:/ITWILL/Final_project/'
 path = 'E:/ITWILL/Final_project/'
-minwon_data = pd.read_csv(path + 'crawlingdata17326.csv')
-#minwon_data = pd.read_csv(path + 'sep_crawling_data_17326.csv')
-#minwon_data.info()
+#minwon_data = pd.read_csv(path + 'crawlingdata17326.csv')
+minwon_data = pd.read_csv(path + 'sep_crawling_data_17326.csv', encoding='CP949')
+minwon_data.info()
 '''
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 17326 entries, 0 to 17325
-Data columns (total 3 columns):
+Data columns (total 4 columns):
  #   Column      Non-Null Count  Dtype 
 ---  ------      --------------  ----- 
  0   Unnamed: 0  17326 non-null  int64 
  1   title       17326 non-null  object
  2   answer      17326 non-null  object
+ 3   sep         17326 non-null  int64 
 '''
 
 titles = minwon_data['title']
@@ -72,17 +74,13 @@ korean_stopwords = path + "korean_stopwords.txt"
 with open(korean_stopwords, encoding='utf8') as f : 
     stopwords = f.readlines()
     stopwords = [x.strip() for x in stopwords]
-    
+
 #print(stopwords[:10])
 
 # 2) 불용어 제거
 okt = Okt()
-'''
-    여기서 (1)과 (2)를 한번에 돌리면 reply 불용어만 제거되므로
-    (1)titles 돌려서 제거 후 (2)replies 돌려야함
-'''
+
 tit_result = []  # 전처리 완료된 titles
-#rpl_result = []  # 전처리 완료된 replies
 
 # (1) titles 불용어 제거
 for sentence in titles:  
@@ -99,8 +97,8 @@ for sentence in titles:
           token_tot += token
           #print('token_tot : ', token_tot)
 
-  #tit_result.append(tit_tokenized)
   tit_result.append(token_tot)
+
 
 len(tit_result) # 17326
 print(tit_result[0])  # '경기도 지역화폐 사용 처가 너무 제한 적 입니다' 
@@ -133,13 +131,15 @@ print(dict(zip(tit_word, tit_idf)))
 # 객체 생성
 tfidf_vectorizer = TfidfVectorizer()
 
-tfidf_often = TfidfVectorizer(max_features=10)
+tfidf_often = TfidfVectorizer(max_features=80)
 # max_features= : 사용할 최대 단어수를 지정
 tfidf_often.fit(tit_result)                  #fit : 단어학습
 top_tokens = tfidf_often.get_feature_names() # 단어목록 읽어오기
-tfidf_voca = tfidf_often.vocabulary_         # 학습한 단어사전 출력/ 여기위에 명령어를 붙여서 사용하는 구조
 print(top_tokens)
+# 나 혼자 그냥.. 시도...2줄()
+tfidf_voca = tfidf_often.vocabulary_         # 학습한 단어사전 출력/ 여기위에 명령어를 붙여서 사용하는 구조
 sorted(tfidf_often.vocabulary_.items())      # 순위 추출
+
 # 각 단어
 # tit_word = tfidf_vectorizer.get_feature_names()  
 # print(tit_word)
@@ -191,22 +191,27 @@ fit_transform은 fit과 transform  두 개의 메소드를 합친 것
 tit_vectorizer = tfidf_vectorizer.fit_transform(tit_result)
 tit_td = tit_vectorizer.toarray()
 
-#부서별 키워드의 tfidf vectorizing
+# 부서별 키워드의 tfidf vectorizing
 sm = tfidf_vectorizer.transform(top9)
 sm = sm.toarray()
 
 #부서별 키워드 vs 민원 파일 title 간의 유사도 측정
-test_sim = linear_kernel(sm, tit_td)
+test_sim = linear_kernel(sm,tit_td) # 나 여기 linear_kernel 함수 아직 잘 모르겟엉
 # 열 : 민원자료
 # 행 : 담당부서
 help(linear_kernel)
+print(test_sim)
 
+df = pd.DataFrame(test_sim, index = top9_dept.keys())
 
-type(test_sim)
+for i in range(len(tit_td)) : 
+    t = df.sort_values([i], ascending = False)
 
-temp =test_sim[30].argsort()
-ranks = np.empty_like(temp)
-ranks[temp]=np.arange(len(test_sim[30]))
-print(test_sim[30])
-print(ranks)
-
+    if t.iloc[0,i] == 0 : 
+        print(i+1, '번째 - 해당 부서 없음')
+        
+    else : 
+        top = t.head(2)
+        dept = top.index
+            
+        print(i+1, '번째 -', dict(zip(list(dept), [t.iloc[0,i], t.iloc[1,i]])))
