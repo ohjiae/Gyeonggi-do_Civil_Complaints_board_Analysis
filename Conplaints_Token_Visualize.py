@@ -36,7 +36,7 @@ Data columns (total 4 columns):
 
 titles = minwon_data['title']
 
-num = [9338, 8343, 9684, 3489, 3588, 1020, 6137, 10015, 9734, 5658,]
+num = [9338, 8343, 9684, 3489, 3588, 1020, 6137, 10015, 9734, 5658]
 #num = np.random.randint(len(titles), size = 10)
 tit_num = titles[num]
 
