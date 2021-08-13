@@ -116,7 +116,7 @@ rand_test.to_csv('rand_test.csv', index=False, encoding='cp949')
 ################################################################## 파일 다운 후 여기부터 성능 test 코드 ##########################################################################
 
 # deptno 부서코드 추가처리 된 상태이다.
-rand_test = pd.read_csv(path + 'rand_test.csv', encoding='CP949')
+rand_test = pd.read_csv(path + 'rand_test_deptno.csv', encoding='CP949')
 rand_test.info()
 '''
 <class 'pandas.core.frame.DataFrame'>
