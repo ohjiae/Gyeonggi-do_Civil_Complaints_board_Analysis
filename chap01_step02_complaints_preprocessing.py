@@ -91,7 +91,6 @@ for sentence in titles:
 
 print(tit_result[:10])
 
-
 '''
 # 4. csv file save - 생략 가능
 # titles 저장
