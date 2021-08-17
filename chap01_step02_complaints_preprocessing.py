@@ -32,7 +32,6 @@ Data columns (total 4 columns):
 '''
 
 titles = minwon_data['title']
-replies = minwon_data['answer']
 sep = minwon_data['sep']
 
 print(titles[:10])
@@ -59,10 +58,6 @@ def text_prepro(wc):
 titles = text_prepro(titles)
 print(titles[:10])
 
-# replies 전처리
-replies = text_prepro(replies)
-print(replies[:10])
-
 
 # 3. 불용어 제거 - Okt 함수 이용
 # 1) 불용어 사전 - https://www.ranks.nl/stopwords/korean
@@ -78,7 +73,6 @@ print(stopwords[:10])
 okt = Okt()
 
 tit_result = []  # 전처리 완료된 titles
-rpl_result = []  # 전처리 완료된 replies
 
 
 # titles 불용어 제거
@@ -97,31 +91,12 @@ for sentence in titles:
 
 print(tit_result[:10])
 
-# replies 불용어 제거
-for sentence in replies:  
-  tmp2 = okt.morphs(sentence)
-  rpl_tokenized = []
-  
-  token_tot = ""    
-  for token in tmp2:      
-      if not token in stopwords:
-          rpl_tokenized.append(token)
-          token = token + " "
-          token_tot += token
-
-  rpl_result.append(token_tot)
-
-print(rpl_result[:10])
 
 '''
 # 4. csv file save - 생략 가능
 # titles 저장
 titles = pd.DataFrame(tit_result)
 titles.to_csv('titles.csv', index = None, encoding = 'CP949')
-
-# replies 저장
-replies = pd.DataFrame(rpl_result)
-replies.to_csv('replies.csv', index = None, encoding = 'CP949')
 '''
 
 # 5. text vectorizing(tf-idf)
@@ -143,19 +118,3 @@ tit_idf_list = dict(zip(tit_word, tit_idf))
 tit_index = tfidf_vectorizer.vocabulary_
 
 print(tit_index[:10])
-
-# 3) replies 문장 벡터화 진행
-# 문장 벡터화 진행
-rpl_vectorizer = tfidf_vectorizer.fit_transform(rpl_result)
-
-# 각 단어 벡터화 진행
-rep_word = tfidf_vectorizer.get_feature_names()
-# 각 단어 벡터값
-rep_idf = tfidf_vectorizer.idf_
-
-# 단어, IDF 값 매칭 리스트
-rpl_vec_list = dict(zip(rep_word, rep_idf))
-# 단어와 부여된 인덱스 확인
-rpl_index = tfidf_vectorizer.vocabulary_
-
-print(rpl_index[:10])
