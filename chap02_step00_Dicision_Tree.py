@@ -19,7 +19,7 @@ from sklearn.metrics import confusion_matrix # 평가
 
 
 # 1. csv file load
-path = 'D:/서다현/빅데이터/Final_Project/ITWILL-Final_project-main/'
+path = 'C:/Users/STU-16/Desktop/빅데이터/Final_Project/ITWILL-Final_project-main/' # 디렉토리 환경에 맞게 수정
 minwon_data = pd.read_csv(path + 'sep_crawling_data_17326.csv', encoding = 'CP949')
 minwon_data.info()
 '''
@@ -35,10 +35,9 @@ Data columns (total 4 columns):
 '''
 
 titles = minwon_data['title']
-replies = minwon_data['answer']
 sep = minwon_data['sep']
 
-print(titles)
+print(titles[:10])
 
 
 # 2. sep, titles, replies 전처리
@@ -60,11 +59,7 @@ def text_prepro(wc):
 # 2) 함수 호출
 # titles 전처리
 titles = text_prepro(titles)
-print(titles)
-
-# replies 전처리
-replies = text_prepro(replies)
-print(replies)
+print(titles[:10])
 
 
 # 3. 불용어 제거 - Okt 함수 이용
@@ -81,7 +76,6 @@ print(stopwords[:10])
 okt = Okt()
 
 tit_result = []  # 전처리 완료된 titles
-rpl_result = []  # 전처리 완료된 replies
 
 
 # titles 불용어 제거
@@ -98,45 +92,23 @@ for sentence in titles:
 
   tit_result.append(token_tot)
 
-print(tit_result)
-
-# replies 불용어 제거
-for sentence in replies:  
-  tmp2 = okt.morphs(sentence)
-  rpl_tokenized = []
-  
-  token_tot = ""    
-  for token in tmp2:      
-      if not token in stopwords:
-          rpl_tokenized.append(token)
-          token = token + " "
-          token_tot += token
-
-  rpl_result.append(token_tot)
-
-print(rpl_result)
-
+print(tit_result[:10])
 
 '''
 # 4. csv file save - 생략 가능
 # titles 저장
 titles = pd.DataFrame(tit_result)
 titles.to_csv('titles.csv', index = None, encoding = 'CP949')
-
-# replies 저장
-replies = pd.DataFrame(rpl_result)
-replies.to_csv('replies.csv', index = None, encoding = 'CP949')
 '''
 
-
-# 4. text vectorizing(tf-idf)
+# 5. text vectorizing(tf-idf)
 # 1) 객체 생성
 tfidf_vectorizer = TfidfVectorizer()           
 
 # 2) titles 문장 벡터화 진행
 # 문장 벡터화 진행
 tit_vectorizer = tfidf_vectorizer.fit_transform(tit_result)
-'''
+
 # 각 단어 벡터화 진행
 tit_word = tfidf_vectorizer.get_feature_names()  
 # 각 단어 벡터값
@@ -147,24 +119,7 @@ tit_idf_list = dict(zip(tit_word, tit_idf))
 # 단어와 부여된 정수값 확인
 tit_index = tfidf_vectorizer.vocabulary_
 
-print(tit_index)
-'''
-# 3) replies 문장 벡터화 진행
-# 문장 벡터화 진행
-rpl_vectorizer = tfidf_vectorizer.fit_transform(rpl_result)
-'''
-# 각 단어 벡터화 진행
-rep_word = tfidf_vectorizer.get_feature_names()
-# 각 단어 벡터값
-rep_idf = tfidf_vectorizer.idf_
-
-# 단어, IDF 값 매칭 리스트
-rpl_vec_list = dict(zip(rep_word, rep_idf))
-# 단어와 부여된 인덱스 확인
-rpl_index = tfidf_vectorizer.vocabulary_
-
-print(rpl_index)
-'''
+print(tit_index[:10])
 
 
 """
